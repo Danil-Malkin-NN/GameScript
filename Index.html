@@ -4,11 +4,11 @@
 	<meta charset="utf-8" />
 	<title>Изучение JavaScript</title>
 	<script>
-		var tr_top = 0;
-		var tr_left = 0;
+		let tr_top = 0;
+		let tr_left = 0;
 		
 		function imagePos(X , Y, angle){
-			var im = document.getElementById("tractor100");
+			let im = document.getElementById("tractor100");
 			tr_top +=X;
 			tr_left +=Y;
 			
@@ -18,22 +18,23 @@
 			
 		    
 		}
-		/*
-		var comand = [10, 5];
-		function stackComandAdd(){
-		    
 		
-		
-		
+		let comand = [];
+		function stackComandAdd(X,Y,Angle){
+			comand += X + " " + Y+ " " + Angle + "\n";
+		     
+			
 		}
-		
+		let comandN;
 		function comandStart(){
-		    comand.forEach(
-		        
-		    });
-		
+			comandN = comand.split("\n");
+			
+			for(var i = 0; i < comandN.length - 1; i++){
+				sp = comandN[i].split(" ");
+				setTimeout(imagePos, i*500, Number(sp[0]),Number(sp[1]), Number(sp[2]));
+				}
 		}
-		*/
+		
 	</script>
 </head>
 <body>
@@ -41,10 +42,10 @@
 	<img name="tractor100" id="tractor100" style="position:absolute" src="tractor100.png">
 		
 	<div style="position:absolute; top:10%; left:80%" id=div2>
-	    <button value="up"      onClick="imagePos(-10, 0 ,0)"> Вверх </button><br>
-		<button value="Left"    onClick="imagePos(0, -10, 270)"> Лево </button><br>
-	    <button value="Right"   onClick="imagePos(0, 10, 90)"> Право </button><br>
-	    <button value="Down"    onClick="imagePos(10,0,180)"> Вниз </button><br>
+	    <button value="up"      onClick="stackComandAdd(-30, 0 ,0)"> Вверх </button><br>
+		<button value="Left"    onClick="stackComandAdd(0, -30, 270)"> Лево </button><br>
+	    <button value="Right"   onClick="stackComandAdd(0, 30, 90)"> Право </button><br>
+	    <button value="Down"    onClick="stackComandAdd(30,0,180)"> Вниз </button><br>
 	    <br>
 	    <br>
 	    <button value="go"    onClick="comandStart()"> Выполнить </button><br>
