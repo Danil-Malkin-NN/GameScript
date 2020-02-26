@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>Изучение JavaScript</title>
+	<script>
+		var tr_top = 0;
+		var tr_left = 0;
+		
+		function imagePos(X , Y, angle){
+			var im = document.getElementById("tractor100");
+			tr_top +=X;
+			tr_left +=Y;
+			
+			im.style.transform = 'rotate(' + angle + 'deg)';
+			im.style.top = (tr_top + "px");
+			im.style.left = (tr_left + "px");
+			
+		    
+		}
+		/*
+		var comand = [10, 5];
+		function stackComandAdd(){
+		    
+		
+		
+		
+		}
+		
+		function comandStart(){
+		    comand.forEach(
+		        
+		    });
+		
+		}
+		*/
+	</script>
+</head>
+<body>
+
+	<img name="tractor100" id="tractor100" style="position:absolute" src="tractor100.png">
+		
+	<div style="position:absolute; top:10%; left:80%" id=div2>
+	    <button value="up"      onClick="imagePos(-10, 0 ,0)"> Вверх </button><br>
+		<button value="Left"    onClick="imagePos(0, -10, 270)"> Лево </button><br>
+	    <button value="Right"   onClick="imagePos(0, 10, 90)"> Право </button><br>
+	    <button value="Down"    onClick="imagePos(10,0,180)"> Вниз </button><br>
+	    <br>
+	    <br>
+	    <button value="go"    onClick="comandStart()"> Выполнить </button><br>
+	</div>
+	
+	
+
+</body>
+
+
+
+</html>
