@@ -2,6 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8" />
+	<link rel="stylesheet" href="style.css">
 	<title>Изучение JavaScript</title>
 <!--	<script type="module" src="Command.js"/> -->
 	<script src="Game.js">
@@ -11,10 +12,10 @@
 </head>
 <body>
 
-	<img name="tractor100" id="tractor100" style="position:absolute; z-index:3" src="tractor100.png">
+	<img name="tractor100" id="tractor100"  src="tractor100.png">
 	
 		
-	<div style="position:absolute; z-index:3; top:10%; left:80%" id=div2>
+	<div id="div2">
 	    <button value="up"      onClick="stackCommandAdd(-30, 0 ,0)"> Вверх </button><br>
 		<button value="Left"    onClick="stackCommandAdd(0, -30, 270)"> Лево </button><br>
 	    <button value="Right"   onClick="stackCommandAdd(0, 30, 90)"> Право </button><br>
@@ -28,8 +29,8 @@
 	    <button value="clea" onClick="clearS()"> Очистить </button> 
 	</div>
 	
-	<canvas id="sugrob" width="1024" height="768" style="position:absolute; top: 0px; left: 0px; z-index:1"></canvas>
-	<canvas id="snow" width="1024" height="768" style="position:absolute; top: 0px; left: 0px; z-index:0"></canvas>
+	<canvas id="sugrob" width="1024" height="768"></canvas>
+	<canvas id="snow" width="1024" height="768" ></canvas>
 	
 	
 

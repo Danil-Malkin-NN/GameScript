@@ -1,0 +1,28 @@
+#tractor100{
+position:absolute; 
+z-index:3;
+transform: rotate(0deg);
+
+}
+#div2{
+position:absolute; 
+z-index:3;
+top:10%;
+left:80%
+
+}
+
+#sugrob{
+position:absolute; 
+top: 0px; 
+left: 0px; 
+z-index:1;
+
+
+}
+#snow{
+position:absolute; 
+top: 0px; 
+left: 0px; 
+z-index:0;
+}
