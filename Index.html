@@ -4,69 +4,17 @@
 	<meta charset="utf-8" />
 	<title>Изучение JavaScript</title>
 <!--	<script type="module" src="Command.js"/> -->
-	<script>
+	<script src="Game.js">
 	
-	var Command = function(x, y, angle) {
-        this.x = x;
-        this.y = y;
-        this.angle = angle;
-    };
-
-    Command.prototype.x = 0;
-    Command.prototype.y = 0;
-    Command.prototype.angle = 0;
-
-		let tr_top = 0;
-		let tr_left = 0;
 		
-		function imagePos(X , Y, angle){
-			let im = document.getElementById("tractor100");
-			tr_top += X;
-			tr_left += Y;
-			
-			im.style.transform = 'rotate(' + angle + 'deg)';
-			im.style.top = (tr_top + "px");
-			im.style.left = (tr_left + "px");
-			
-		    
-		}
-		
-		let commands = [];
-		
-		function stackCommandAdd(x, y, angle){
-		    commands.push(new Command(x, y, angle));
-		    console.log(commands);
-		}
-		
-		let comandN;
-
-
-		function comandStart(){
-		    let commandNumber = 0;
-		    
-		    setTimeout(function handleCommand() {
-		        let command = commands[commandNumber];
-		        imagePos(command.x, command.y, 
-				            command.angle);
-				commandNumber++;
-				setTimeout(handleCommand, 500);
-		    }, 500);
-		}
-		
-		function clearS(){
-		    comand = [];
-		    
-		}
-		
-		//<canvas id="smile" width="585" height="500">
 	</script>
 </head>
 <body>
 
-	<img name="tractor100" id="tractor100" style="position:absolute" src="tractor100.png">
+	<img name="tractor100" id="tractor100" style="position:absolute; z-index:3" src="tractor100.png">
 	
 		
-	<div style="position:absolute; top:10%; left:80%" id=div2>
+	<div style="position:absolute; z-index:3; top:10%; left:80%" id=div2>
 	    <button value="up"      onClick="stackCommandAdd(-30, 0 ,0)"> Вверх </button><br>
 		<button value="Left"    onClick="stackCommandAdd(0, -30, 270)"> Лево </button><br>
 	    <button value="Right"   onClick="stackCommandAdd(0, 30, 90)"> Право </button><br>
@@ -79,6 +27,9 @@
 	    <br>
 	    <button value="clea" onClick="clearS()"> Очистить </button> 
 	</div>
+	
+	<canvas id="sugrob" width="1024" height="768" style="position:absolute; top: 0px; left: 0px; z-index:1"></canvas>
+	<canvas id="snow" width="1024" height="768" style="position:absolute; top: 0px; left: 0px; z-index:0"></canvas>
 	
 	
 

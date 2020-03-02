@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<script>
+window.onload = function() {
+	let canvas = document.getElementById('drawing');
+	let context = canvas.getContext("2d");
+	context.beginPath();
+	for (let i = 0; i < 100; i++) {
+		context.rect(Math.random() * canvas.width, Math.random() * canvas.height,
+					Math.random() * 100, Math.random() * 100);
+	}
+	context.stroke();
+}
+
+</script>
+</head>
+<body>
+<canvas width="1024" height="768" id="drawing"/>
+</body>
+</html>
