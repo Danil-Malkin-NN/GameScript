@@ -11,7 +11,6 @@ Command.prototype.angle = 0;
 
 let tr_top = 0;
 let tr_left = 0;
-
 function imagePos(X , Y, angle){
 	let im = document.getElementById("tractor100");
 	tr_top += X;
@@ -20,7 +19,7 @@ function imagePos(X , Y, angle){
 	im.style.transform = 'rotate(' + angle + 'deg)';
 	im.style.top = (tr_top + "px");
 	im.style.left = (tr_left + "px");
-	
+	cleanGrass(angle);
     
 }
 
@@ -91,6 +90,21 @@ window.onload = function() {
 	}
 	grass.src = "grass.png";
 	
+}
+function cleanGrass(angle){
+    let canvas = document.getElementById('snow');
+	let context = canvas.getContext("2d");
+	if(angle == 90){
+        context.clearRect(tr_left + 57, tr_top, 50,100); 
+    }if(angle == 270){
+         context.clearRect(tr_left - 10, tr_top, 50,100); 
+    }if(angle == 180){
+        context.clearRect(tr_left, tr_top + 67, 100, 50);
+    }else{
+        context.clearRect(tr_left, tr_top, 100,50);
+    }
+    
+
 }
 
 
