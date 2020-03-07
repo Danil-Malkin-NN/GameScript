@@ -2,12 +2,14 @@ const PROG = 0; // Запоминаем команды
 const PLAY = 1; // Выполняем список команд
 const EXEC = 2; // Выполняем одну команду из списка команд
 
+const STEP_SIZE = 120; // px
+
 let state = PROG;
 
 var Command = function(x, y, angle) {
-this.x = x;
-this.y = y;
-this.angle = angle;
+    this.x = x;
+    this.y = y;
+    this.angle = angle;
 };
 
 Command.prototype.x = 0;
@@ -35,52 +37,70 @@ let commands = [];
 
 function stackCommandAdd(x, y, angle){
     commands.push(new Command(x, y, angle));
-    console.log(commands);
+    //console.log(commands);
+}
+
+function moveLeft() {
+    stackCommandAdd(0, -STEP_SIZE, 270);
+}
+
+function moveRight() {
+    stackCommandAdd(0, STEP_SIZE, 90);
+}
+
+function moveDown() {
+    stackCommandAdd(STEP_SIZE, 0, 180);
+}
+
+function moveUp() {
+    stackCommandAdd(-STEP_SIZE, 0 ,0);
 }
 
 let comandN;
 
-
 function comandStart(){
-	
 	if (commands.length == 0)
 	    return;
 	
 	if (state == PLAY) {
 	    return;
 	}
-	
-	state = PLAY;
-
-    let commandNumber = 0;
-    let deltaX;
-    let deltaY;
-    let command;
-    
-    
-    
-    setTimeout(function handleCommand() {
-        switch (state) {
+	if(state == PROG) {
+	    let timeout = 10;
+	    let command;
+	    let deltaX, deltaY;
+        let commandNumber = 0;
+        let pxStepCounter = 0;
+	    state = PLAY;
+        setTimeout(function play() {
+            switch (state) {
             case PLAY:
-                command = commands[commandNumber];
-                deltaX = (command.x != 0) ? command.x / Math.abs(command.x) : 0;
-                
-                deltaY = (command.y > 0) ? command.y / Math.abs(command.y) : -1;
-                state = EXEC;
+            	if (commandNumber < commands.length) {
+                    command = commands[commandNumber];
+                    commandNumber++;
+                    deltaX = (command.x != 0) ? command.x / Math.abs(command.x) : 0;
+                    deltaY = (command.y != 0) ? command.y / Math.abs(command.y) : 0;
+                    pxStepCounter = Math.abs(command.x) + Math.abs(command.y);
+                    state = EXEC;
+                    setTimeout(play, timeout);
+                } else {
+                    clearS();
+                    state = PROG;
+                }
                 break;
             
             case EXEC:
-                
+                if (pxStepCounter == 0) {
+                    state = PLAY;
+                } else {
+                    imagePos(deltaX, deltaY, command.angle);
+                    pxStepCounter--;
+                }
+                setTimeout(play, timeout);
                 break;
-        }
-
-        imagePos(command.x, command.y, 
-		            command.angle);
-		commandNumber++;
-		if (commandNumber < commands.length) {
-			setTimeout(handleCommand, 500);
-		}
-    }, 500);
+            }
+        }, timeout);
+    }
 }
 
 function clearS(){
@@ -129,13 +149,13 @@ window.onload = function() {
 		context.beginPath();
 	    context.lineWidth = 2;
 	    context.strokeStyle = 'red';
-	    for(let i = 0; i < height; i+=117){
+	    for(let i = 0; i < height; i+= STEP_SIZE){
 	        context.moveTo(0, i);
 	        context.lineTo(weidth, i);
 	    
 	    }
 	    
-	    for(let i = 0; i < weidth; i+=117){
+	    for(let i = 0; i < weidth; i+= STEP_SIZE){
 	        context.moveTo(i, 0);
 	        context.lineTo(i,height);
 	    
@@ -144,27 +164,19 @@ window.onload = function() {
 	    
 	    context.stroke();
 }
-	
-	
 
 function cleanGrass(angle){
     let canvas = document.getElementById('snow');
 	let context = canvas.getContext("2d");
 	if(angle == 90){
-        context.clearRect(tr_left + 57, tr_top, 50,100); 
+        context.clearRect(tr_left + 70, tr_top, 50, STEP_SIZE); 
     }if(angle == 270){
-         context.clearRect(tr_left - 10, tr_top, 50,100); 
+         context.clearRect(tr_left, tr_top, 50, STEP_SIZE); 
     }if(angle == 180){
-        context.clearRect(tr_left, tr_top + 67, 100, 50);
+        context.clearRect(tr_left, tr_top + 70, STEP_SIZE, 50);
     }else{
-        context.clearRect(tr_left, tr_top, 100,50);
+        context.clearRect(tr_left, tr_top, STEP_SIZE,50);
     }
-    
-
 }
-
-
-	
-	
 
 
