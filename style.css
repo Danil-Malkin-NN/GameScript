@@ -40,4 +40,10 @@ top: 0px;
 left: 0px; 
 z-index:2;
 }
+#score{
+
+color: #721c24;
+z-index: 3;
+
+}
 
