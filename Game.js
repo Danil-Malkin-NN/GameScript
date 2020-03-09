@@ -139,7 +139,7 @@ function score(){
 		if(sugrobXY[i][0]*STEP_SIZE == tr_left && sugrobXY[i][1]*STEP_SIZE == tr_top )
 			scor -=240;
 	}
-	document.getElementById("score").innerText = scor++;
+	document.getElementById("score").innerText = ++scor;
 
 }
 function finishGame(){
