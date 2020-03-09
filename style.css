@@ -1,49 +1,60 @@
-#tractor100{
-top:0px;
-left:0px;
-position:absolute; 
-z-index:3;
-transform: rotate(0deg);
-
-}
-#div2{
-position:absolute; 
-z-index:3;
-top:10%;
-left:80%
+#tractor100 {
+    top: 0px;
+    left: 0px;
+    position: absolute;
+    z-index: 3;
+    transform: rotate(0deg);
 
 }
 
-#sugrob{
-position:absolute; 
-top: 0px; 
-left: 0px; 
-z-index:1;
+#div2 {
+    position: absolute;
+    z-index: 3;
+    top: 10%;
+    left: 80%
+}
+
+#stacComand {
+    position: absolute;
+    z-index: 3;
+    top: 20%;
+    left: 70%;
+}
+
+#sugrob {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 1;
 
 
 }
-#snow{
-position:absolute; 
-top: 0px; 
-left: 0px; 
-z-index:0;
-}
-#grass{
-position:absolute; 
-top: 0px; 
-left: 0px; 
-z-index:-1;
-}
-#grid{
-position:absolute; 
-top: 0px; 
-left: 0px; 
-z-index:2;
-}
-#score{
 
-color: #721c24;
-z-index: 3;
+#snow {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 0;
+}
+
+#grass {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: -1;
+}
+
+#grid {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 2;
+}
+
+#score {
+
+    color: #721c24;
+    z-index: 3;
 
 }
 

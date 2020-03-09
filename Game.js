@@ -45,23 +45,27 @@ let commands = [];
 function stackCommandAdd(x, y, angle){
 	if(state == PROG)
     	commands.push(new Command(x, y, angle));
-    //console.log(commands);
+
 }
 
 function moveLeft() {
     stackCommandAdd(0, -STEP_SIZE, 270);
+	stacComand("Влево");
 }
 
 function moveRight() {
     stackCommandAdd(0, STEP_SIZE, 90);
+	stacComand("Вправо");
 }
 
 function moveDown() {
     stackCommandAdd(STEP_SIZE, 0, 180);
+	stacComand("Вниз");
 }
 
 function moveUp() {
     stackCommandAdd(-STEP_SIZE, 0 ,0);
+	stacComand("Вверх");
 }
 
 let comandN;
@@ -94,6 +98,7 @@ function comandStart(){
                     setTimeout(play, timeout);
                 } else {
                     clearS();
+
                     state = PROG;
                 }
                 break;
@@ -115,7 +120,8 @@ function comandStart(){
 //Очистка команд
 function clearS(){
     commands = [];
-    
+	stacComandClear();
+
 }
 
 //функция очистки земли
@@ -139,7 +145,7 @@ function score(){
 		if(sugrobXY[i][0]*STEP_SIZE == tr_left && sugrobXY[i][1]*STEP_SIZE == tr_top )
 			scor -=240;
 	}
-	document.getElementById("score").innerText = ++scor;
+	document.getElementById("score").innerText = ++scor + "потрачено топлива!";
 
 }
 function finishGame(){
@@ -151,12 +157,24 @@ function finishGame(){
 			tr_top = 0;
 			tr_left = 0;
 			scor = 0;
+			stacComandClear();
+			clearS();
 			alert("Эй, смотри куда едешь! строй алгоритм, что бы не наезжать на дома!!")
 		}
 	}
 
 
 
+}
+
+function stacComand(comand){
+	if( state == PROG)
+		document.getElementById("stacComand").innerText += comand + "\n";
+}
+
+function stacComandClear(){
+	if( state == PROG)
+		document.getElementById("stacComand").innerText = "";
 }
 
 
