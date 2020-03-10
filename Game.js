@@ -9,11 +9,10 @@ const finishX =  STEP_SIZE*7,
 	finishY = STEP_SIZE*5;
 
 let state = PROG;
-let houseXY = [[3,5],[4,5],[2,2],[7,4]];
-let sugrobXY = [[2,3],[2,4]];
+
 let scor = 0;
 
-alert("Пройдите уровень потратив как можно меньше топлива! Знайте, сниговики уменьшают количекство топлива которое вы потратили!");
+//alert("Пройдите уровень потратив как можно меньше топлива! Знайте, сниговики уменьшают количекство топлива которое вы потратили!");
 
 var Command = function(x, y, angle) {
     this.x = x;
@@ -176,15 +175,29 @@ function stacComandClear(){
 	if( state == PROG)
 		document.getElementById("stacComand").innerText = " ";
 }
-
+function getRandomInt(max) {
+	return Math.floor(Math.random() * Math.floor(max));
+}
 
 //Отрисовка Линий, снега, земли, сугробов, домов наверное тоже!
-window.onload = function() {
 
+let houseXY = [];
+let sugrobXY = [];
+
+function generateMap(){
 	let sugrob = new Image();
 	let finish = new Image();
 	let house = new Image();
-	sugrob.onload = function() {
+	house.src = 'House.png';
+	finish.src = 'Finish.png';
+	sugrob.src = 'sugrob.png';
+	sugrob.onload = function () {
+		for(let i = 0; i < getRandomInt(10); i ++){
+			houseXY.push([getRandomInt(10),getRandomInt(10)]);
+
+
+		}
+
 		let canvas = document.getElementById('sugrob');
 		let context = canvas.getContext("2d");
 		for(let i =0; i < sugrobXY.length; i++) {
@@ -197,9 +210,23 @@ window.onload = function() {
 		context.drawImage(finish, finishX, finishY, STEP_SIZE, STEP_SIZE);
 	}
 
-	house.src = 'House.png';
-	finish.src = 'Finish.png';
-	sugrob.src = 'sugrob.png';
+}
+
+
+
+
+
+
+window.onload = function() {
+
+
+
+
+
+	generateMap();
+
+
+
 
 
 
