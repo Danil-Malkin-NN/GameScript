@@ -9,9 +9,9 @@ const finishX =  STEP_SIZE*7,
 	finishY = STEP_SIZE*5;
 
 let state = PROG;
-
+let win = false;
 let scor = 0;
-
+let level = 1;
 //alert("Пройдите уровень потратив как можно меньше топлива! Знайте, сниговики уменьшают количекство топлива которое вы потратили!");
 
 var Command = function(x, y, angle) {
@@ -100,6 +100,9 @@ function comandStart(){
                 } else {
                     clearS();
                     state = PROG;
+					if ( win == false){
+						losee();
+					}
                 }
                 break;
             case EXEC:
@@ -113,7 +116,9 @@ function comandStart(){
                 break;
             }
         }, timeout);
+
     }
+
 }
 
 //Очистка команд
@@ -148,21 +153,25 @@ function score(){
 
 }
 function finishGame(){
-	if( tr_left == finishX && tr_top == finishY){
+	if( tr_left == finishCord[0] * STEP_SIZE && tr_top == finishCord[1]* STEP_SIZE){
 		alert("Конец игры, ваш счёт : " + scor + " !!")
+		win = true;
 	}
 	for(let i = 0; i < houseXY.length; i++){
 		if(houseXY[i][0]*STEP_SIZE == tr_left && houseXY[i][1]*STEP_SIZE == tr_top ) {
-			tr_top = 0;
-			tr_left = 0;
-			scor = 0;
-			stacComandClear();
-			clearS();
-			alert("Эй, смотри куда едешь! строй алгоритм, что бы не наезжать на дома!!");
+			losee();
 		}
 	}
-
-
+}
+function losee() {
+	tr_top = 0;
+	tr_left = 0;
+	scor = 0;
+	imagePos(0,0,180);
+	stacComandClear();
+	clearS();
+	alert("Ты проиграл!");
+	generateSnow();
 
 }
 
@@ -183,6 +192,30 @@ function getRandomInt(max) {
 
 let houseXY = [];
 let sugrobXY = [];
+let finishCord =[];
+function generateRandom(Levl) {
+	houseXY = [];
+	sugrobXY = [];
+	finishCord.push(getRandomInt(10));
+	finishCord.push(getRandomInt(6));
+	for(let i = 0; i < getRandomInt(Levl) + 1; i ++){
+		houseXY.push([getRandomInt(Levl)+1,getRandomInt(Levl)+1]);
+		if(houseXY[i][0] > 10 || houseXY[i][1] > 6 || finishCord[0] == houseXY[i][0] || finishCord[1] == houseXY[i][1]){
+			houseXY.pop();
+			i--;
+		}
+	}for(let i = 0; i < getRandomInt(Levl) + 1; i ++){
+		sugrobXY.push([getRandomInt(Levl) + 1,getRandomInt(Levl) + 1]);
+		if(sugrobXY[i][0] > 10 || sugrobXY[i][1] > 6 || finishCord[0] == sugrobXY[i][0] || finishCord[1] == sugrobXY[i][1]){
+			sugrobXY.pop();
+			i--;
+		}
+	}
+
+
+
+
+}
 
 function generateMap(){
 	let sugrob = new Image();
@@ -192,14 +225,10 @@ function generateMap(){
 	finish.src = 'Finish.png';
 	sugrob.src = 'sugrob.png';
 	sugrob.onload = function () {
-		for(let i = 0; i < getRandomInt(10); i ++){
-			houseXY.push([getRandomInt(10),getRandomInt(10)]);
-
-
-		}
 
 		let canvas = document.getElementById('sugrob');
 		let context = canvas.getContext("2d");
+		context.clearRect(0,0 , width, height);
 		for(let i =0; i < sugrobXY.length; i++) {
 			context.drawImage(sugrob, STEP_SIZE*sugrobXY[i][0], STEP_SIZE*sugrobXY[i][1], STEP_SIZE, STEP_SIZE);
 		}
@@ -207,37 +236,37 @@ function generateMap(){
 		for(let i =0; i < houseXY.length; i++) {
 			context.drawImage(house, STEP_SIZE * houseXY[i][0], STEP_SIZE * houseXY[i][1], STEP_SIZE, STEP_SIZE);
 		}
-		context.drawImage(finish, finishX, finishY, STEP_SIZE, STEP_SIZE);
+		context.drawImage(finish, finishCord[0] * STEP_SIZE, finishCord[1] * STEP_SIZE, STEP_SIZE, STEP_SIZE);
 	}
 
 }
-
-
-
-
-
-
-window.onload = function() {
-
-
-
-
-
-	generateMap();
-
-
-
-
-
-
+function generateSnow(){
 	let snow = new Image();
+	snow.src = '1.png';
 	snow.onload = function(){
 		let canvas = document.getElementById('snow');
 		let context = canvas.getContext("2d");
+		context.clearRect(0,0 , width, height);
 		context.drawImage(snow, 0, 0, width, height);
 	}
-	snow.src = '1.png';
 
+}
+function next(){
+	level++;
+	generateRandom(level);
+	generateSnow();
+	generateMap();
+	tr_left = 0;
+	tr_top = 0;
+	imagePos(0 , 0, 0);
+
+}
+window.onload = function() {
+	generateRandom();
+
+	generateMap();
+
+	generateSnow();
 	//добавить тут замлю!
 	let grass = new Image();
 	grass.onload = function(){
@@ -246,26 +275,19 @@ window.onload = function() {
 		context.drawImage(grass, 0, 0, width, height);
 	}
 	grass.src = "grass.png";
-
 	let canvas = document.getElementById('grid');
 	let context = canvas.getContext("2d");
-
 	context.beginPath();
 	context.lineWidth = 2;
 	context.strokeStyle = 'red';
 	for(let i = 0; i < height; i+= STEP_SIZE){
 		context.moveTo(0, i);
 		context.lineTo(width, i);
-
 	}
-
 	for(let i = 0; i < width; i+= STEP_SIZE){
 		context.moveTo(i, 0);
 		context.lineTo(i,height);
-
 	}
-
-
 	context.stroke();
 }
 
